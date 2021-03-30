@@ -1,11 +1,15 @@
-package log
+package logger
 
 import (
 	"bytes"
+	"easy-go/src/config"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
 )
+func Init(cfg *config.Config) {
+
+}
 
 //获取请求参数
 func getRequestRaw(c *gin.Context) ([]byte,error) {

@@ -44,6 +44,6 @@ func StartApiServer(port int) {
 	if err := s.Shutdown(ctx); err != nil {
 		log.Fatalf("server forced to shut down :%v", err.Error())
 	}
-	log.Println("server exit")
+	log.Fatalf("server exit")
 
 }

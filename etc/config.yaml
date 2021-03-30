@@ -1,0 +1,12 @@
+release_mode: debug
+server_port: 8919
+log_config:
+  log_level: debug
+  log_format: json
+mysql_conf:
+  host: 127.0.0.1
+  port: 3306
+  username: root
+  password: 0325
+  database: test
+
