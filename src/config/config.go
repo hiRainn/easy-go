@@ -15,6 +15,7 @@ type Config struct {
 type LogConfig struct {
 	LogLevel  string `yaml:"log_level"`
 	LogFormat string `yaml:"log_format"`
+	LogPath   string `yaml:"log_path"`
 }
 
 type MysqlConf struct {

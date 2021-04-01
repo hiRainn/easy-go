@@ -5,10 +5,19 @@ import (
 	"easy-go/src/config"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 	"io/ioutil"
 )
-func Init(cfg *config.Config) {
 
+var Log = logrus.New()
+
+func Init(cfg *config.Config) {
+	if cfg.LogConfig.LogFormat == "json" {
+		Log.SetFormatter(&logrus.JSONFormatter{})
+	} else {
+		Log.SetFormatter(&logrus.TextFormatter{})
+	}
+	
 }
 
 //获取请求参数

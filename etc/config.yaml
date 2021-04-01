@@ -3,6 +3,7 @@ server_port: 8919
 log_config:
   log_level: debug
   log_format: json
+  log_path : ../logs
 mysql_conf:
   host: 127.0.0.1
   port: 3306
