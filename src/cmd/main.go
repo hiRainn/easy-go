@@ -5,12 +5,13 @@ import (
 	"easy-go/src/config"
 	"easy-go/src/logger"
 	"flag"
+	"fmt"
 	"log"
 )
 
 func main() {
 	initConf()
-	logger.Init(config.Conf)
+	logger.Init()
 	go api.StartApiServer(config.Conf.ServerPort)
 	select {}
 }
@@ -26,5 +27,10 @@ func initConf() {
 	if err = config.InitConf(*cfg); err != nil {
 		log.Fatalf("init config error：%v",err.Error())
 	}
+	logger.Init()
+
+	logger.GetLogger().Errorf("asdsa %v","123")
+	logger.GetLogger("hjdas-dsada-dsadas").Infof("asdsa %v   asdsa  %v ","123","123","321")
+	fmt.Println("gelodsa")
 }
 
