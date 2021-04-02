@@ -49,6 +49,9 @@ func GetLogger(traceId ...string) *Logger {
 
 //todo 释放文件句柄
 func (l *Logger) Free() {
+	/*
+	删除句柄代码
+	*/
 	delete(logPoll, l.TraceId)
 }
 
@@ -76,9 +79,15 @@ func Init() {
 
 //release handle of log
 func manageLogPoll() {
-	for _,v := range logPoll {
-		if v.Expire < time.Now().Unix() {
-			v.Free()
+	ticker := time.NewTicker(time.Second * 5)
+	for {
+		select {
+		case <- ticker.C:
+			for _,v := range logPoll {
+				if v.Expire < time.Now().Unix() {
+					v.Free()
+				}
+			}
 		}
 	}
 }
