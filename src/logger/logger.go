@@ -79,12 +79,13 @@ func Init() {
 
 //release handle of log
 func manageLogPoll() {
-	ticker := time.NewTicker(time.Second * 5)
+	ticker := time.NewTicker(time.Second * 3)
 	for {
 		select {
 		case <- ticker.C:
 			for _,v := range logPoll {
-				if v.Expire < time.Now().Unix() {
+				//filter trace_id eq ""
+				if v.Expire < time.Now().Unix() && v.TraceId != "" {
 					v.Free()
 				}
 			}
