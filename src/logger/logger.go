@@ -79,7 +79,7 @@ func Init() {
 
 //release handle of log
 func manageLogPoll() {
-	ticker := time.NewTicker(time.Second * 3)
+	ticker := time.NewTicker(time.Second * 5)
 	for {
 		select {
 		case <- ticker.C:
