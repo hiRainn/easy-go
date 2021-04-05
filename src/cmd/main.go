@@ -28,9 +28,7 @@ func initConf() {
 		log.Fatalf("init config error：%v",err.Error())
 	}
 	logger.Init()
-
-	logger.GetLogger().Errorf("asdsa %v","123")
-	logger.GetLogger("hjdas-dsada-dsadas").Infof("asdsa %v   asdsa  %v ","123","123","321")
+	logger.GetLogger().Info("logger start...")
 	fmt.Println("gelodsa")
 }
 
