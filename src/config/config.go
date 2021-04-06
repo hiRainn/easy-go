@@ -7,6 +7,7 @@ import (
 
 type Config struct {
 	ReleaseMode string     `yaml:"release_mode"`
+	Version     string     `yaml:"version"`
 	ServerPort  int        `yaml:"server_port"`
 	LogConfig   *LogConfig `yaml:"log_config"`
 	MysqlConf   *MysqlConf `yaml:"mysql_conf"`
@@ -31,10 +32,10 @@ var Conf = new(Config)
 func InitConf(cfg string) (err error) {
 	var yamlFile []byte
 	yamlFile, err = ioutil.ReadFile(cfg)
-	if err != nil{
+	if err != nil {
 		return err
 	}
-	err = yaml.Unmarshal(yamlFile,Conf)
+	err = yaml.Unmarshal(yamlFile, Conf)
 	if err != nil {
 		return err
 	}
