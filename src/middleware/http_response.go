@@ -14,9 +14,39 @@ type Context struct {
 
 func (c *Context) ResponsePanic(msg ...interface{}){
 	c.JSON(http.StatusOK,gin.H{
-		"status":"0000",
+		"code":-1,
 		"msg":"system error",
 	})
+}
+
+func (c *Context) ResponseFail(msg interface{}) {
+	c.JSON(http.StatusOK,gin.H{
+		"code":1,
+		"msg":msg,
+	})
+}
+
+func (c *Context) ResponseError(msg interface{}) {
+	c.JSON(http.StatusOK,gin.H{
+		"code":99,
+		"msg":msg,
+	})
+}
+
+func (c *Context) ResponseSuccess(data interface{},key ...map[string]interface{}) {
+	response := gin.H{
+		"code":0,
+		"msg":"success",
+		"data":data[0],
+	}
+	if len(key) > 0 {
+		for k,v := range key[0] {
+			if k != "code" && k != "msg" && k != "data" {
+				response[k] = v
+			}
+		}
+	}
+	c.JSON(http.StatusOK,response)
 }
 
 
