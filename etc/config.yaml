@@ -1,4 +1,5 @@
 release_mode: debug
+version: 0.0.1
 server_port: 8919
 log_config:
   log_level: debug
