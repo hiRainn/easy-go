@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"net/http/httputil"
+	"reflect"
 	"runtime"
 )
 
@@ -33,16 +34,20 @@ func (c *Context) ResponseError(msg interface{}) {
 	})
 }
 
-func (c *Context) ResponseSuccess(data interface{},key ...map[string]interface{}) {
+func (c *Context) ResponseSuccess(data ...interface{}) {
 	response := gin.H{
 		"code":0,
 		"msg":"success",
-		"data":data,
 	}
-	if len(key) > 0 {
-		for k,v := range key[0] {
-			if k != "code" && k != "msg" && k != "data" {
-				response[k] = v
+	if len(data) > 0 {
+		response["data"] = data[0]
+	}
+	if len(data) > 1 {
+		if reflect.TypeOf(data[1]).Kind() == reflect.Map && reflect.TypeOf(data[1]).Key().Kind() == reflect.String {
+			for _,key := range reflect.ValueOf(data[1]).MapKeys() {
+				if key.String() != "code" && key.String() != "msg" && key.String() != "data" {
+					response[key.String()] = reflect.ValueOf(data[1]).MapIndex(key).Interface()
+				}
 			}
 		}
 	}
