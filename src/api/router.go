@@ -2,7 +2,7 @@ package api
 
 import (
 	"context"
-	t "easy-go/src/api/test"
+	t "easy-go/src/api/demo"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -18,13 +18,14 @@ func registerRouter(router *gin.Engine) {
 	//if you need different versions
 	v1 := api.Group("/v1")
 
-	//test module
-	test := v1.Group("/test")
-	new(t.Test).Router(test)
+	//demo module
+	test := v1.Group("/demo")
+	new(t.Demo).Router(test)
 }
 
 func StartApiServer(port int) {
 	router := gin.Default()
+	registerRouter(router)
 	s := &http.Server{
 		Addr:    fmt.Sprintf(":%d", port),
 		Handler: router,

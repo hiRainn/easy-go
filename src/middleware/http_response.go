@@ -37,7 +37,7 @@ func (c *Context) ResponseSuccess(data interface{},key ...map[string]interface{}
 	response := gin.H{
 		"code":0,
 		"msg":"success",
-		"data":data[0],
+		"data":data,
 	}
 	if len(key) > 0 {
 		for k,v := range key[0] {

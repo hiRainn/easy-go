@@ -10,5 +10,5 @@ mysql_conf:
   port: 3306
   username: root
   password: 0325
-  database: test
+  database: demo
 
