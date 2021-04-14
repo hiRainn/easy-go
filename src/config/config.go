@@ -17,6 +17,7 @@ type LogConfig struct {
 	LogLevel  string `yaml:"log_level"`
 	LogFormat string `yaml:"log_format"`
 	LogPath   string `yaml:"log_path"`
+	SaveDay   int    `yaml:"save_day"`
 }
 
 type MysqlConf struct {

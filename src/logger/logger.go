@@ -5,6 +5,7 @@ import (
 	"easy-go/src/config"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
 	"github.com/sirupsen/logrus"
 	"io/ioutil"
 	"time"
@@ -42,16 +43,15 @@ func GetLogger(traceId ...string) *Logger {
 		} else {
 			logPoll[key].SetFormatter(&logrus.TextFormatter{})
 		}
+		setOutput(logPoll[key])
 	}
 
 	return logPoll[key]
 }
 
-//todo 释放文件句柄
+//free
 func (l *Logger) Free() {
-	/*
-	删除句柄代码
-	*/
+	logPoll[l.TraceId].Logger = nil
 	delete(logPoll, l.TraceId)
 }
 
@@ -73,6 +73,7 @@ func Init() {
 	} else {
 		logPoll[""].SetFormatter(&logrus.TextFormatter{})
 	}
+	setOutput(logPoll[""])
 
 	go manageLogPoll()
 }
@@ -91,6 +92,22 @@ func manageLogPoll() {
 			}
 		}
 	}
+}
+
+func setOutput(log *Logger) {
+	cfg := config.GetConf()
+	logPath := cfg.LogConfig.LogPath
+	if logPath[len(logPath)-1:] != "/" {
+		logPath = logPath + "/"
+	}
+	writer, err := rotatelogs.New(
+		logPath + "%Y%m%d.log",
+		rotatelogs.WithMaxAge(time.Duration(cfg.LogConfig.SaveDay)*time.Hour * 24),
+		)
+	if err != nil {
+		log.Fatalf("启动日志失败：%v", err.Error())
+	}
+	log.Logger.SetOutput(writer)
 }
 
 //获取请求参数
