@@ -56,14 +56,8 @@ func (l *Logger) Free() {
 }
 
 func Init() {
-	var (
-	//file *os.File
-	//err error
-	)
-	//path := config.GetConf().LogConfig.LogPath
-	//if file, err = os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_APPEND, os.ModePerm); err !=nil{
-	//	logrus.Error("打开日志文件错误：", err)
-	//}
+	// todo caller
+
 	cfg := config.GetConf()
 	logPoll = make(map[string]*Logger)
 	logPoll[""] = &Logger{Logger: logrus.New()}
