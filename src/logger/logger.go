@@ -56,11 +56,8 @@ func (l *Logger) Free() {
 }
 
 func Init() {
-<<<<<<< HEAD
-=======
-	// todo caller
 
->>>>>>> 66adc7b395ee109657649963d096e5bc55859f97
+	// todo caller
 	cfg := config.GetConf()
 	logPoll = make(map[string]*Logger)
 	//new log with key "" for log pool
