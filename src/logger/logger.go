@@ -56,25 +56,16 @@ func (l *Logger) Free() {
 }
 
 func Init() {
-	var (
-	//file *os.File
-	//err error
-	)
-	//path := config.GetConf().LogConfig.LogPath
-	//if file, err = os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_APPEND, os.ModePerm); err !=nil{
-	//	logrus.Error("打开日志文件错误：", err)
-	//}
 	cfg := config.GetConf()
 	logPoll = make(map[string]*Logger)
+	//new log with key "" for log pool
 	logPoll[""] = &Logger{Logger: logrus.New()}
-
 	if cfg.LogConfig.LogFormat == "json" {
 		logPoll[""].SetFormatter(&logrus.JSONFormatter{})
 	} else {
 		logPoll[""].SetFormatter(&logrus.TextFormatter{})
 	}
 	setOutput(logPoll[""])
-
 	go manageLogPoll()
 }
 

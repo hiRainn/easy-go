@@ -7,6 +7,7 @@ import (
 
 type Config struct {
 	ReleaseMode string     `yaml:"release_mode"`
+	ProjectName string	   `yaml:"project_name"`
 	Version     string     `yaml:"version"`
 	ServerPort  int        `yaml:"server_port"`
 	LogConfig   *LogConfig `yaml:"log_config"`

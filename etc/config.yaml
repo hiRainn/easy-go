@@ -1,11 +1,12 @@
 release_mode: debug
 version: 0.0.1
+project_name: easy-go
 server_port: 8919
 log_config:
   log_level: debug
   log_format: json
   log_path: ./logs
-  save_day: 1
+  save_day: 2
 mysql_conf:
   host: 127.0.0.1
   port: 3306
