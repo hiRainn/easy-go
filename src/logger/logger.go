@@ -15,7 +15,7 @@ type Logger struct {
 	*logrus.Logger
 	LogPath string
 	TraceId string
-	Caller  string
+	Caller  map[string]interface{}
 	Expire  int64
 	Field   map[string]string
 }
@@ -37,6 +37,7 @@ func GetLogger(traceId ...string) *Logger {
 	}
 	if _, ok := logPoll[key]; !ok {
 		logPoll[key] = &Logger{Logger: logrus.New(), TraceId: key, Expire: expire}
+		logPoll[key].Logger.SetLevel(logrus.DebugLevel)
 		cfg := config.GetConf()
 		if cfg.LogConfig.LogFormat == "json" {
 			logPoll[key].SetFormatter(&logrus.JSONFormatter{})
@@ -57,11 +58,11 @@ func (l *Logger) Free() {
 
 func Init() {
 
-	// todo caller
 	cfg := config.GetConf()
 	logPoll = make(map[string]*Logger)
 	//new log with key "" for log pool
 	logPoll[""] = &Logger{Logger: logrus.New()}
+	logPoll[""].Logger.SetLevel(logrus.DebugLevel)
 	if cfg.LogConfig.LogFormat == "json" {
 		logPoll[""].SetFormatter(&logrus.JSONFormatter{})
 	} else {
