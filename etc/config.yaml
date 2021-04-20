@@ -1,6 +1,5 @@
 release_mode: debug
 version: 0.0.1
-project_name: easy-go
 server_port: 8919
 log_config:
   log_level: debug

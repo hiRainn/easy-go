@@ -2,7 +2,7 @@ package logger
 
 import (
 	"bytes"
-	"easy-go/src/config"
+	"easy-go/etc"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
@@ -38,7 +38,7 @@ func GetLogger(traceId ...string) *Logger {
 	if _, ok := logPoll[key]; !ok {
 		logPoll[key] = &Logger{Logger: logrus.New(), TraceId: key, Expire: expire}
 		logPoll[key].Logger.SetLevel(logrus.DebugLevel)
-		cfg := config.GetConf()
+		cfg := etc.GetConf()
 		if cfg.LogConfig.LogFormat == "json" {
 			logPoll[key].SetFormatter(&logrus.JSONFormatter{})
 		} else {
@@ -58,7 +58,7 @@ func (l *Logger) Free() {
 
 func Init() {
 
-	cfg := config.GetConf()
+	cfg := etc.GetConf()
 	logPoll = make(map[string]*Logger)
 	//new log with key "" for log pool
 	logPoll[""] = &Logger{Logger: logrus.New()}
@@ -89,7 +89,7 @@ func manageLogPoll() {
 }
 
 func setOutput(log *Logger) {
-	cfg := config.GetConf()
+	cfg := etc.GetConf()
 	logPath := cfg.LogConfig.LogPath
 	if logPath[len(logPath)-1:] != "/" {
 		logPath = logPath + "/"

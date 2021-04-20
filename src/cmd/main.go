@@ -1,8 +1,8 @@
 package main
 
 import (
+	"easy-go/etc"
 	"easy-go/src/api"
-	"easy-go/src/config"
 	"easy-go/src/logger"
 	"flag"
 	"log"
@@ -10,7 +10,7 @@ import (
 
 func main() {
 	initConf()
-	go api.StartApiServer(config.Conf.ServerPort)
+	go api.StartApiServer(etc.Conf.ServerPort)
 	select {}
 }
 
@@ -23,7 +23,7 @@ func initConf() {
 	//fileName := "/Applications/MAMP/gopath/easy-go/etc/config.yaml"
 	cfg := flag.String("c",fileName,"Config file")
 	flag.Parse()
-	if err = config.InitConf(*cfg); err != nil {
+	if err = etc.InitConf(*cfg); err != nil {
 		log.Fatalf("init config error：%v",err.Error())
 	}
 	logger.Init()
