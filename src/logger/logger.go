@@ -96,6 +96,7 @@ func setOutput(log *Logger) {
 	}
 	writer, err := rotatelogs.New(
 		logPath + "%Y%m%d.log",
+		rotatelogs.WithLinkName("run.log"),
 		rotatelogs.WithMaxAge(time.Duration(cfg.LogConfig.SaveDay)*time.Hour * 24),
 		)
 	if err != nil {
